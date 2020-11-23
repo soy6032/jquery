@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 1-4</title>
+    <script src="./jquery-3.5.1.js"></script>
+    <script src="./jquery.color-2.1.2.js"></script>
+    <script>
+
+        //slide 효과: jquery에서 sildeDown, slideUp, sildeToggle 함수를 제공
+        // - 시간은 1/1000초를 기준으로 사용 (1초가 1000), slow, fast
+        //사용법
+        //$(선택자).sildeDown(시간, 실행함수);
+
+        //animate 효과 : jquery를 통해서 사용자 지정 애니메이션을 만들 수 있는 함수
+        // - animate를 이용하면 css의 animation 속성을 손쉽게 만들 수 있음
+        // - 시간은 1/1000초를 기준으로 사용 (1초가 1000), slow, fast
+        // - 속성값 입력 시 상대값으로 데이터를 입력할 수 있음
+        // - +=, -= 을 사용하여 기존의 속성값에 데이터를 추가할 수 있음
+        // - 애니메이션 동작을 할 속성을 여러개 지정할 수 있음
+        // - 여러개의 애니메이션을 사용하여 단계적으로 동작하는 애니메이션을 제작할 수 있음
+        //사용법
+        // - animate 에서 속성명을 입력할때 css 속성면이 '-'가 들어가 있는 경우
+        // '-'를 제거하고 이어지는 단어의 첫 영문자를 대문자로 입력
+        // - fonrSize, backgroundColor, paddingLeft, marginTop
+        //$(선택자).animate({속성명1:속성값1, 속성명2:속성값2,...}, 속도, 실행함수);
+
+       
+
+
+
+
+        $(document).ready(function(){
+            $("#div01 > .flip").on("click",function(){
+                $("#div01 > .panel").slideDown("slow");
+            });
+
+            $("#div02 > .flip").on("click",function(){
+                $("#div02 > .panel").slideUp("slow");
+            });
+            $("#div03 > .flip").on("click",function(){
+                $("#div03 > .panel").slideToggle("slow");
+            });
+
+            //animate 함수
+            $("#div04 > .ani1").on("click",function(){
+                $("#div04 > .ani1").animate({left: '250px'});   
+            });
+            $("#div04 > .ani2").on("click",function(){
+                $("#div04 > .ani2").animate({
+                        left: '250px',
+                        opacity: "0.5",
+                        height: "150px",
+                        width: "150px"
+                    });   
+            });
+            $("#div04 > .ani3").on("click",function(){
+                $("#div04 > .ani3").animate({
+                    left: "250px",
+                    height: "+=100px",
+                    width: "+=100px"
+                    });   
+            });
+            $("#div04 > .ani4").on("click",function(){
+                $("#div04 > .ani4").animate({
+                    height : "300px",
+                    opacity : "0.4"
+                    },"slow"); 
+                $("#div04 > .ani4").animate({
+                    width : "300px",
+                    opacity : "0.8"
+                    },"slow");
+                $("#div04 > .ani4").animate({
+                    height : "100px",
+                    opacity : "0.4"
+                    },"slow");
+                $("#div04 > .ani4").animate({
+                    width : "100px",
+                    opacity : "0.8"
+                    },"slow");   
+            });
+
+            $("#div05 > .ani5").on("click",function(){
+                $("#div05 > .ani5").animate({
+                    left : "300px",
+                    backgroundColor : "green"
+                    },"slow"); 
+                $("#div05 > .ani5 > p").animate({
+                    fontSize : "8px",
+                    },"slow"); 
+                $("#div05 > .ani5 > p").animate({
+                    fontSize : "24px"
+                    },"slow"); 
+                });
+        });
+
+        //문제1)animate 함수를 사용하여 div태그의 위치를 300px이동 후 div 태그내의 
+        //p대그의 글자가 8px로 작아졌다가 다시 24로 커지는 애니메이션
+        //div 200px, 200px
+        //p Hello(시작시 16px)
+    </script>
+    <style>
+        .flip, .panel{
+            padding: 5px;
+            text-align: center;
+            background-color: #e5eecc;
+            border: 1px solid lightgray;
+        }
+        .panel{
+            padding: 50px;;
+        }
+        #div01 > .panel{
+            display: none;
+        }
+        #div04{
+            position: relative;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+        }
+        #div04 > .ani1{
+            position: absolute;
+            background-color: yellowgreen;
+        }
+                
+        #div04 > .ani2{
+            position: absolute;
+            background-color: yellowgreen;
+            top: 150px;
+            left: 0px;
+        } 
+        #div04 > .ani3{
+            position: absolute;
+            background-color: yellowgreen;
+            top: 255px;
+            left: 0px;
+        }
+        #div04 > .ani4{
+            position: absolute;
+            background-color: yellowgreen;
+            top: 360px;
+            left: 0px;
+        }
+        #div04 > .ani5{
+            position: absolute;
+            background-color: yellowgreen;
+            top: 470px;
+            left: 0px;
+        }
+        #div05{
+            position: relative;
+        }
+        #div05 > .ani5{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: yellowgreen;
+            top: 423px;
+            left: 0px;
+            font-size: 16px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="div01">
+        <h3>slideDown</h3>
+        <div class="flip">클릭시 아래의 div 영역 표시</div>
+        <div class="panel">클릭시 아래의 div 영역 표시</div>
+    </div>
+
+    <br><hr><br>
+
+    <div id="div02">
+        <h3>slideUp</h3>
+        <div class="flip">클릭시 아래의 div 영역 숨김</div>
+        <div class="panel">클릭시 아래의 div 영역 숨김</div>
+    </div>
+
+    <br><hr><br>
+
+    <div id="div03">
+        <h3>slideToggle</h3>
+        <div class="flip">클릭시 아래의 div 영역 숨김/표시</div>
+        <div class="panel">클릭시 아래의 div 영역 숨김/표시</div>
+    </div>
+
+    <br><hr><br>
+
+    <div id="div04">
+        <h3>animate</h3>
+        <div class="box ani1">클릭 시 이동</div>
+        <div class="box ani2">클릭 시 이동하면서 커지고 투명해짐</div>
+        <div class="box ani3">클릭 시 상대값을 사용하여 크기가 커짐</div>
+        <div class="box ani4">클릭 시 애니메이션 연계동작</div>
+    </div>
+
+    <div id="div05">
+        <div class="ani5"><p>Hello</p></div>
+    </div>
+
+
+    
+
+
+   
+</body>
+</html>
